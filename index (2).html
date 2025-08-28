@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ultra Interactive One‑Pager — 50+ Features</title>
+  <meta name="color-scheme" content="dark light">
+  <style>
+    /* ===== THEME & BASE ===== */
+    :root{
+      --base: 16px;
+      --bg: #0b1220; --bg2:#0a0f1a; --text:#e6eefc; --muted:#9fb2d8;
+      --accent: #7c3aed; --accent2:#60a5fa;
+      --card:#0f172a; --card2:#0b1329;
+      --ok:#34d399; --warn:#f59e0b; --err:#ef4444;
+      --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35), 0 3px 10px rgba(0,0,0,.25);
+    }
+    [data-theme="light"]{ --bg:#f7f9ff; --bg2:#eef3ff; --text:#101a2e; --muted:#556382; --card:#ffffff; --card2:#f4f7ff; --shadow:0 8px 24px rgba(16,26,46,.12); }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;font-size:var(--base)}
+    body{
+      margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--text);
+      background: radial-gradient(1200px 600px at var(--mx,50%) var(--my,10%), color-mix(in oklab, var(--accent) 30%, transparent), transparent 60%), radial-gradient(800px 400px at 80% 0%, rgba(96,165,250,.25), transparent 60%), linear-gradient(180deg,var(--bg),var(--bg2));
+      background-attachment: fixed;
+    }
+    ::selection{background: color-mix(in oklab, var(--accent) 40%, transparent)}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 1.25rem}
+    a{color:inherit}
+    kbd{padding:.1rem .35rem;border:1px solid rgba(255,255,255,.2);border-bottom-width:2px;border-radius:6px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    .progress{position:fixed;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform-origin:left;transform:scaleX(0);z-index:60}
+    header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(12px);background:linear-gradient(180deg,rgba(0,0,0,.35),transparent);border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:.6rem 0}
+    .brand{display:flex;gap:.6rem;align-items:center;font-weight:800}
+    .dot{width:12px;height:12px;border-radius:999px;background:conic-gradient(var(--accent),var(--accent2),var(--accent)); box-shadow:0 0 12px color-mix(in oklab, var(--accent) 80%, transparent)}
+    nav a{padding:.45rem .7rem;border-radius:999px;text-decoration:none;border:1px solid transparent}
+    nav a:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)}
+    nav a.active{background:linear-gradient(180deg,color-mix(in oklab, var(--accent) 25%, transparent),rgba(96,165,250,.25));border-color:rgba(255,255,255,.2)}
+    .controls{display:flex;gap:.4rem;align-items:center}
+    .toggle, .chip{padding:.35rem .7rem;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--text);cursor:pointer}
+    .color{inline-size:28px;block-size:28px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:var(--accent);cursor:pointer}
+    .slider{appearance:none;width:110px;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));outline:none}
+    .with-sidebar{display:grid;grid-template-columns:280px 1fr;gap:1.25rem}
+    .sidebar{position:sticky;top:64px;align-self:start;background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.75rem;box-shadow:var(--shadow)}
+    .sidebar details{margin:.3rem 0}
+    section{padding:90px 0}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;min-height:70vh}
+    .headline{font-size:clamp(2rem,6vw,4rem);line-height:1.08;margin:.2rem 0}
+    .sub{color:var(--muted);max-width:70ch}
+    .btn{position:relative;display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 1.1rem;border-radius:999px;font-weight:700;text-decoration:none;color:#0b1220;background:linear-gradient(180deg,#fff,#dbe8ff);border:1px solid rgba(0,0,0,.08);box-shadow:var(--shadow);overflow:hidden}
+    .btn::before{content:"";position:absolute;inset:-2px;border-radius:999px;padding:2px;background:conic-gradient(var(--accent),var(--accent2),var(--accent));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.35;transition:opacity .2s}
+    .btn:hover::before{opacity:.7}
+    .btn.secondary{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.18)}
+    .btn.ghost{background:transparent;color:var(--text);border:1px dashed rgba(255,255,255,.18)}
+    .art{position:relative;aspect-ratio:1/1.05;border-radius:var(--radius);background: radial-gradient(600px 300px at 30% 10%, color-mix(in oklab, var(--accent) 30%, transparent),transparent 60%), linear-gradient(180deg,var(--card),var(--card2));box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+    .blob,.ring,.flare{position:absolute;filter:blur(16px);opacity:.9;mix-blend-mode:screen;will-change:transform}
+    .blob{width:320px;height:320px;background:radial-gradient(circle at 30% 30%, rgba(96,165,250,.9), transparent 60%);left:-40px;top:-40px}
+    .ring{width:420px;height:420px;border-radius:999px;border:40px solid color-mix(in oklab, var(--accent) 25%, transparent);right:-80px;top:-60px}
+    .flare{width:180px;height:180px;background:radial-gradient(circle at 50% 50%, rgba(255,255,255,.85), transparent 60%);left:40%;top:60%}
+    .art .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);background-size:30px 30px;mask:radial-gradient(closest-side,#000 60%,transparent);}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+    .card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.02)), linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow);transform:perspective(900px) rotateX(0) rotateY(0);transition:transform .15s}
+    .card h3{margin:.15rem 0 .35rem;font-size:1.05rem}
+    .card p{margin:0;color:var(--muted)}
+    .shine{pointer-events:none;position:absolute;inset:-2px;border-radius:inherit;background: radial-gradient(400px 200px at var(--mx,50%) var(--my,50%), rgba(255,255,255,.22), transparent 40%), linear-gradient(180deg,transparent, color-mix(in oklab, var(--accent) 15%, transparent));opacity:.85}
+    .badge{font-size:.75rem;padding:.25rem .55rem;border-radius:999px;background:color-mix(in oklab, var(--accent) 15%, transparent);border:1px solid color-mix(in oklab, var(--accent) 35%, transparent)}
+    [data-tip]{position:relative}
+    [data-tip]:hover::after{content:attr(data-tip);position:absolute;left:50%;top:-8px;transform:translate(-50%,-100%);white-space:nowrap;background:#111827;color:#e5e7eb;border:1px solid rgba(255,255,255,.1);padding:.35rem .55rem;border-radius:8px;box-shadow:var(--shadow);font-size:.8rem}
+    pre{position:relative;margin:0;border-radius:14px;background:#0b1426;border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);overflow:auto}
+    code{display:block;padding:1rem 1.1rem;line-height:1.5}
+    .tok-kw{color:#c084fc;font-weight:700}.tok-fn{color:#60a5fa}.tok-str{color:#34d399}.tok-num{color:#f59e0b}
+    .copy{position:absolute;top:8px;right:8px}
+    details{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.8rem 1rem;box-shadow:var(--shadow)}
+    details+details{margin-top:.7rem} summary{cursor:pointer;font-weight:700} summary::-webkit-details-marker{display:none}
+    .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+    .tile{aspect-ratio:1/1;border-radius:12px;background: radial-gradient(120px 60px at 30% 30%, rgba(96,165,250,.6), transparent 60%), linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden}
+    .tile::after{content:"";position:absolute;inset:0;background: radial-gradient(160px 80px at var(--mx,50%) var(--my,50%), rgba(255,255,255,.18), transparent 40%)}
+    .tabs{display:flex;gap:.5rem;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:1rem}
+    .tabs button{background:transparent;border:0;color:var(--text);padding:.6rem .9rem;border-radius:10px;cursor:pointer}
+    .tabs button[aria-selected="true"]{background:color-mix(in oklab, var(--accent) 20%, transparent)}
+    .tabpanels{border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1rem;background:linear-gradient(180deg,var(--card),var(--card2))}
+    .carousel{position:relative;overflow:hidden;border-radius:12px;border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow)}
+    .slides{display:flex;transition:transform .45s ease}
+    .slide{min-width:100%;padding:60px 20px;text-align:center;background:linear-gradient(180deg,var(--card),var(--card2))}
+    .carousel .dotnav{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);display:flex;gap:6px}
+    .carousel .dotnav button{width:8px;height:8px;border-radius:99px;border:0;background:#cbd5e1;opacity:.5}
+    .carousel .dotnav button[aria-current="true"]{opacity:1;background:var(--accent2)}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.48);display:none;place-items:center;z-index:70}
+    .modal .panel{width:min(560px,90vw);background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1rem;box-shadow:var(--shadow)}
+    .toastwrap{position:fixed;right:16px;bottom:16px;display:flex;flex-direction:column;gap:.5rem;z-index:80}
+    .toast{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:.6rem .9rem;box-shadow:var(--shadow)}
+    .backtop{position:fixed;right:16px;bottom:16px;z-index:65;transform:translateY(120%);transition:transform .2s}
+    .backtop.show{transform:none}
+    .ring{position:fixed;right:20px;top:70px;width:48px;height:48px;z-index:65}
+    .search{display:flex;gap:.5rem;align-items:center;margin:.75rem 0}
+    .search input{flex:1;background:#0c1424;color:var(--text);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:.6rem .8rem}
+    .kbd-help{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;place-items:center;z-index:75}
+    .kbd-help .panel{width:min(720px,92vw);background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1rem;box-shadow:var(--shadow)}
+    .data-table{width:100%;border-collapse:collapse;background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden}
+    .data-table th,.data-table td{padding:.65rem .8rem;border-bottom:1px solid rgba(255,255,255,.08)}
+    .data-table th{cursor:pointer;text-align:left;position:sticky;top:0;background:color-mix(in oklab, var(--card) 85%, transparent)}
+    .note{width:100%;min-height:140px;background:#0c1424;color:var(--text);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:.7rem .8rem}
+    .drop{border:2px dashed rgba(255,255,255,.25);border-radius:12px;padding:1rem;text-align:center}
+    .drop.hover{background:rgba(255,255,255,.05)}
+    .chart{width:100%;height:260px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,var(--card),var(--card2));box-shadow:var(--shadow)}
+    footer{padding:40px 0;color:var(--muted);text-align:center}
+    @media print{
+      header,.progress,.backtop,.ring,.toastwrap,.modal,.kbd-help{display:none !important}
+      body{background:#fff;color:#000} .card,.sidebar,.tabpanels{box-shadow:none;border-color:#ddd}
+    }
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+    .reveal.show{opacity:1;transform:none}
+    @media (max-width: 960px){.hero{grid-template-columns:1fr}.with-sidebar{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.tiles{grid-template-columns:repeat(4,1fr)}}
+    @media (max-width: 640px){.grid{grid-template-columns:1fr}.tiles{grid-template-columns:repeat(3,1fr)}}
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><span class="dot" aria-hidden="true"></span> Ultra Interactive</div>
+      <nav aria-label="Primary">
+        <a href="#home" class="active">Home</a>
+        <a href="#features">Features</a>
+        <a href="#code">Code</a>
+        <a href="#charts">Charts</a>
+        <a href="#table">Table</a>
+        <a href="#notes">Notes</a>
+        <a href="#upload">Upload</a>
+        <a href="#timers">Timers</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="controls">
+        <button class="toggle" id="themeBtn" title="Toggle theme (T)">Theme</button>
+        <div class="color" id="colorBtn" title="Accent color"></div>
+        <label class="chip" title="Font size"><input id="fontRange" class="slider" type="range" min="14" max="20" value="16"></label>
+        <button class="toggle" id="helpKbd" title="Keyboard shortcuts (?)">?</button>
+        <span class="chip" id="clock" aria-live="polite"></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Command palette -->
+  <div class="modal" id="palette" role="dialog" aria-modal="true" aria-labelledby="palTitle">
+    <div class="panel">
+      <h3 id="palTitle" style="margin:.2rem 0 .5rem">Quick actions</h3>
+      <div class="search"><input id="palInput" placeholder="Type: home, features, code, contact…" aria-label="Command search"/></div>
+      <div class="sub">Enter to go • Esc to close</div>
+    </div>
+  </div>
+
+  <!-- Keyboard help -->
+  <div class="kbd-help" id="kbd" role="dialog" aria-modal="true" aria-labelledby="kbdTitle">
+    <div class="panel">
+      <h3 id="kbdTitle" style="margin:.2rem 0 .5rem">Keyboard Shortcuts</h3>
+      <ul>
+        <li><kbd>⌘/Ctrl</kbd> + <kbd>K</kbd> — Command palette</li>
+        <li><kbd>T</kbd> — Toggle theme</li>
+        <li><kbd>/</kbd> — Focus filter</li>
+        <li><kbd>G</kbd> — Toggle grid density</li>
+        <li><kbd>?</kbd> — This help</li>
+        <li>Konami code — Confetti</li>
+      </ul>
+      <div style="display:flex;gap:.5rem;justify-content:flex-end"><button class="btn secondary" id="kbdClose">Close</button></div>
+    </div>
+  </div>
+
+  <main id="home" class="wrap with-sidebar">
+    <aside class="sidebar" aria-label="On this page">
+      <details open>
+        <summary>Jump to</summary>
+        <nav style="display:grid;gap:.25rem;margin-top:.5rem">
+          <a href="#home">Home</a><a href="#features">Features</a><a href="#code">Code</a><a href="#charts">Charts</a><a href="#table">Table</a><a href="#notes">Notes</a><a href="#upload">Upload</a><a href="#timers">Timers</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+        </nav>
+      </details>
+      <details>
+        <summary>Actions</summary>
+        <div style="display:grid;gap:.4rem;margin-top:.4rem">
+          <button class="btn ghost" id="openModal">Open modal</button>
+          <button class="btn ghost" id="showToast">Show toast</button>
+          <button class="btn ghost" id="copyLink">Copy section link</button>
+          <button class="btn ghost" id="randomize">Randomize tiles</button>
+        </div>
+      </details>
+      <details>
+        <summary>Filter cards</summary>
+        <div class="search"><input id="filter" placeholder="Type to filter (press / to focus)…"/></div>
+        <div style="display:flex;gap:.3rem;align-items:center"><span class="chip" id="gridCols">3 cols</span><button class="toggle" id="gridToggle">Toggle density (G)</button></div>
+      </details>
+      <details>
+        <summary>Data</summary>
+        <div style="display:grid;gap:.4rem;margin-top:.4rem">
+          <button class="toggle" id="exportData">Export settings</button>
+          <input id="importData" type="file" accept="application/json" hidden>
+          <button class="toggle" id="importBtn">Import settings</button>
+        </div>
+      </details>
+    </aside>
+
+    <div>
+      <section class="hero" id="top">
+        <div>
+          <div class="badge" data-tip="Animated gradient, spotlight, and more">All in one</div>
+          <h1 class="headline">A single HTML file packed with polish</h1>
+          <p class="sub">Hover highlights, 3D tilt, parallax art, syntax‑highlighted code with copy, scroll progress + ring, tooltips, reveal animations, theme + accent persistence, command palette, carousel, tabs, modal, toast, live search, D&D cards, sortable table, canvas chart, file drop, notes autosave, timers, keyboard help, confetti, and more.</p>
+          <div style="display:flex;gap:.75rem;margin-top:1rem">
+            <a class="btn" href="#features">Explore features</a>
+            <a class="btn secondary" href="#contact">Get in touch</a>
+          </div>
+          <p class="sub" style="margin-top:.75rem" id="featureCount">Features loaded: …</p>
+        </div>
+        <div class="art parallax" aria-hidden="true">
+          <div class="blob" data-depth="0.05"></div>
+          <div class="ring" data-depth="0.1"></div>
+          <div class="flare" data-depth="0.2"></div>
+          <div class="grid"></div>
+        </div>
+      </section>
+
+      <section id="features" class="reveal">
+        <div style="display:flex;justify-content:space-between;align-items:end;gap:1rem">
+          <div>
+            <h2 style="margin:0 0 .75rem">Feature Highlights</h2>
+            <p class="sub" style="margin-bottom:1rem">Hover any card to see tilt + glossy spotlight. Drag cards to reorder. Use the filter to search live.</p>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Feature views">
+            <button role="tab" aria-selected="true" aria-controls="panel1" id="tab1">Overview</button>
+            <button role="tab" aria-selected="false" aria-controls="panel2" id="tab2">Gallery</button>
+            <button role="tab" aria-selected="false" aria-controls="panel3" id="tab3">Carousel</button>
+          </div>
+        </div>
+
+        <div class="tabpanels">
+          <div id="panel1" role="tabpanel" aria-labelledby="tab1">
+            <div class="grid" id="cards">
+              <article class="card tilt draggable" tabindex="0" data-tags="parallax spotlight"><div class="shine"></div><h3>Parallax & Spotlight</h3><p>Background reacts to your cursor with gradient shading. Foreground art moves on depth layers.</p></article>
+              <article class="card tilt draggable" tabindex="0" data-tags="scroll spy"><div class="shine"></div><h3>Smooth Scroll & Spy</h3><p>Sticky header and section spy highlight current section. Top bar and ring show progress.</p></article>
+              <article class="card tilt draggable" tabindex="0" data-tags="reveal io"><div class="shine"></div><h3>Reveal on View</h3><p>Sections fade and lift into view via IntersectionObserver. Accessible and buttery.</p></article>
+              <article class="card tilt draggable" tabindex="0" data-tags="tabs carousel"><div class="shine"></div><h3>Tabs & Carousel</h3><p>Accessible tabs with panels, swipe‑friendly carousel with dots and autoplay pause.</p></article>
+              <article class="card tilt draggable" tabindex="0" data-tags="modal toast"><div class="shine"></div><h3>Modal & Toast</h3><p>Accessible dialog and lightweight notification system.</p></article>
+              <article class="card tilt draggable" tabindex="0" data-tags="palette shortcuts"><div class="shine"></div><h3>Command Palette</h3><p><kbd>⌘/Ctrl</kbd>+<kbd>K</kbd> opens quick navigation. <kbd>?</kbd> shows shortcuts.</p></article>
+            </div>
+          </div>
+          <div id="panel2" role="tabpanel" hidden aria-labelledby="tab2">
+            <div class="tiles" id="tiles">
+              <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+              <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+            </div>
+          </div>
+          <div id="panel3" role="tabpanel" hidden aria-labelledby="tab3">
+            <div class="carousel" id="carousel">
+              <div class="slides">
+                <div class="slide">Slide 1 • Pure CSS/JS carousel</div>
+                <div class="slide">Slide 2 • Keyboard + swipe navigation</div>
+                <div class="slide">Slide 3 • Dot nav + auto‑pause</div>
+              </div>
+              <div class="dotnav"></div>
+            </div>
+          </div>
+        </div>
+
+        <details style="margin-top:1rem">
+          <summary>More micro‑features</summary>
+          <ul>
+            <li>Theme toggle + accent color picker with persistence</li>
+            <li>Font size slider, persisted</li>
+            <li>Sticky sidebar TOC</li>
+            <li>Back‑to‑top button</li>
+            <li>Deep‑link copy</li>
+            <li>Konami‑code confetti</li>
+            <li>Random quote + clock</li>
+            <li>Print‑friendly stylesheet</li>
+            <li>Tiles mouse‑glow, grid density toggle</li>
+            <li>Settings export/import as JSON</li>
+          </ul>
+        </details>
+      </section>
+
+      <section id="code" class="reveal">
+        <h2 style="margin:0 0 .75rem">Code Demo</h2>
+        <p class="sub" style="margin:0 0 .75rem">Tiny JS helper that builds a glowing mouse‑follow highlight and copies code on click.</p>
+        <pre><button class="btn copy" data-copy>Copy</button><code id="snippet"><span class="tok-kw">const</span> area <span class="tok-kw">=</span> document.<span class="tok-fn">querySelector</span>(<span class="tok-str">'.interactive'</span>);
+area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointermove'</span>, (<span class="tok-kw">e</span>) <span class="tok-kw">=&gt;</span> {
+  <span class="tok-kw">const</span> r <span class="tok-kw">=</span> area.<span class="tok-fn">getBoundingClientRect</span>();
+  area.<span class="tok-fn">style</span>.setProperty(<span class="tok-str">'--mx'</span>, (e.clientX - r.left) + <span class="tok-str">'px'</span>);
+  area.<span class="tok-fn">style</span>.setProperty(<span class="tok-str">'--my'</span>, (e.clientY - r.top) + <span class="tok-str">'px'</span>);
+});</code></pre>
+      </section>
+
+      <section id="charts" class="reveal">
+        <h2 style="margin:0 0 .75rem">Canvas Chart</h2>
+        <p class="sub">Simple bar chart rendered to &lt;canvas&gt; with randomize button.</p>
+        <canvas id="chart" class="chart" width="1000" height="260" aria-label="Bar chart" role="img"></canvas>
+        <div style="display:flex;gap:.5rem;margin-top:.6rem">
+          <button class="btn" id="randChart">Randomize</button>
+          <button class="btn secondary" id="downloadChart">Download PNG</button>
+        </div>
+      </section>
+
+      <section id="table" class="reveal">
+        <h2 style="margin:0 0 .75rem">Sortable Table</h2>
+        <p class="sub">Click headers to sort. Shift‑click to multi‑sort.</p>
+        <table class="data-table" id="dataTbl">
+          <thead><tr><th data-key="name">Name</th><th data-key="score">Score</th><th data-key="date">Date</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="notes" class="reveal">
+        <h2 style="margin:0 0 .75rem">Notes (Autosave)</h2>
+        <p class="sub">Your text is stored locally in your browser. Export or import later.</p>
+        <textarea id="note" class="note" placeholder="Write anything…"></textarea>
+        <div style="display:flex;gap:.5rem;margin-top:.6rem">
+          <button class="btn" id="exportNotes">Export notes</button>
+          <label class="btn secondary" for="importNotes">Import notes</label>
+          <input id="importNotes" type="file" accept="text/plain" hidden>
+          <button class="btn secondary" id="clearNotes">Clear</button>
+        </div>
+      </section>
+
+      <section id="upload" class="reveal">
+        <h2 style="margin:0 0 .75rem">File Drop & Preview</h2>
+        <p class="sub">Drop an image or text file to preview without upload.</p>
+        <div id="drop" class="drop">Drop files here or click to select<input id="filePick" type="file" accept="image/*,text/plain" hidden></div>
+        <div id="preview" style="margin-top:.6rem"></div>
+      </section>
+
+      <section id="timers" class="reveal">
+        <h2 style="margin:0 0 .75rem">Timers</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div class="card">
+            <h3>Countdown</h3>
+            <div style="display:flex;gap:.4rem;align-items:center">
+              <input id="countInput" type="number" min="1" max="600" value="60" style="width:90px" /> <span class="sub">seconds</span>
+              <button class="btn" id="startCount">Start</button>
+              <span id="countDisp" class="chip">60</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Pomodoro</h3>
+            <div style="display:flex;gap:.4rem;align-items:center">
+              <button class="btn" id="pomoStart">Start (25/5)</button>
+              <button class="btn secondary" id="pomoStop">Stop</button>
+              <span id="pomoDisp" class="chip">Idle</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="reveal">
+        <h2 style="margin:0 0 .75rem">FAQ</h2>
+        <details open><summary>Is everything really in one file?</summary><div class="sub">Yes. All CSS and JS live in this HTML for easy drop‑in hosting.</div></details>
+        <details><summary>Can I change the accent color?</summary><div class="sub">Click the round color swatch in the header to randomize the accent. It persists, too.</div></details>
+        <details><summary>How do I export my settings?</summary><div class="sub">Use “Export settings” in the sidebar. It includes theme, accent, font size, and more.</div></details>
+      </section>
+
+      <section id="contact" class="reveal">
+        <h2 style="margin:0 0 .75rem">Contact</h2>
+        <p class="sub">This button opens your default email client. Replace the address with yours.</p>
+        <a class="btn" href="mailto:hello@yourdomain.com?subject=Hello&body=Hi%20there">Email me</a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="wrap">
+    <svg viewBox="0 0 1200 140" width="100%" height="140" preserveAspectRatio="none" aria-hidden="true">
+      <defs><linearGradient id="wave" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="#60a5fa"/></linearGradient></defs>
+      <path d="M0,80 C200,10 400,150 600,80 C800,10 1000,150 1200,80 L1200,140 L0,140 Z" fill="url(#wave)" opacity=".25"></path>
+      <path d="M0,100 C220,30 420,170 600,100 C780,30 980,170 1200,100 L1200,140 L0,140 Z" fill="url(#wave)" opacity=".35"></path>
+    </svg>
+    <div>Built with semantic HTML, modern CSS, and a few lines of vanilla JS.</div>
+  </footer>
+
+  <button class="btn backtop" id="backTop" aria-label="Back to top">↑ Top</button>
+  <svg class="ring" viewBox="0 0 36 36" aria-hidden="true">
+    <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="#60a5fa"/></linearGradient></defs>
+    <path d="M18 2 a 16 16 0 1 1 0 32 a 16 16 0 1 1 0 -32" fill="none" stroke="#334155" stroke-width="4" opacity=".35"/>
+    <path id="ringProg" d="M18 2 a 16 16 0 1 1 0 32 a 16 16 0 1 1 0 -32" fill="none" stroke="url(#grad)" stroke-width="4" stroke-dasharray="100 100" stroke-linecap="round"/>
+  </svg>
+
+  <div class="toastwrap" id="toasts" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="panel">
+      <h3 id="modalTitle" style="margin:.2rem 0 .5rem">Hello from a modal</h3>
+      <p class="sub">This is a fully accessible dialog built with plain HTML, CSS, and JS.</p>
+      <div style="display:flex;gap:.5rem;justify-content:flex-end"><button class="btn secondary" id="closeModal">Close</button></div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Utilities =====
+    const root = document.documentElement;
+    const $ = (s, el=document) => el.querySelector(s);
+    const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+    const save = (k,v)=>localStorage.setItem(k,JSON.stringify(v));
+    const load = (k,d)=>{ try{ return JSON.parse(localStorage.getItem(k)) ?? d; }catch{ return d; } };
+    const setMouseVars = (el, e) => { const r = el.getBoundingClientRect(); el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px'); };
+
+    // ===== Theme / Accent / Font size (persist) =====
+    const themeBtn = $('#themeBtn'); const colorBtn = $('#colorBtn'); const fontRange = $('#fontRange');
+    const applyTheme = t => { document.body.dataset.theme = t; save('theme',t); };
+    const applyAccent = c => { root.style.setProperty('--accent', c); colorBtn.style.background = c; save('accent', c); };
+    const applyFont = n => { root.style.setProperty('--base', n+'px'); save('font', n); };
+    applyTheme(load('theme','')); applyAccent(load('accent', getComputedStyle(root).getPropertyValue('--accent').trim())); applyFont(load('font', 16));
+
+    themeBtn.addEventListener('click', ()=>applyTheme(document.body.dataset.theme === 'light' ? '' : 'light'));
+    colorBtn.addEventListener('click', ()=>{ const rand = `hsl(${Math.floor(Math.random()*360)} 85% 60%)`; applyAccent(rand); toast('Accent updated'); });
+    fontRange.addEventListener('input', ()=>applyFont(fontRange.value));
+
+    // ===== Body spotlight background =====
+    window.addEventListener('pointermove', e => { root.style.setProperty('--mx', e.clientX + 'px'); root.style.setProperty('--my', e.clientY + 'px'); });
+
+    // ===== 3D tilt, glows, parallax =====
+    $$('.tilt').forEach(card => {
+      card.addEventListener('pointermove', e => {
+        setMouseVars(card, e);
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5;
+        const y = (e.clientY - r.top) / r.height - .5;
+        card.style.transform = `perspective(900px) rotateX(${(-y*8).toFixed(2)}deg) rotateY(${(x*12).toFixed(2)}deg)`;
+      });
+      ['pointerleave','blur'].forEach(t=>card.addEventListener(t,()=>card.style.transform=''));
+    });
+    $$('.tile').forEach(t => t.addEventListener('pointermove', e => setMouseVars(t, e)));
+    const parallax = $('.parallax');
+    parallax?.addEventListener('pointermove', e => {
+      const r = parallax.getBoundingClientRect();
+      const cx = (e.clientX - r.left) / r.width - .5;
+      const cy = (e.clientY - r.top) / r.height - .5;
+      parallax.querySelectorAll('[data-depth]').forEach(el => {
+        const d = parseFloat(el.getAttribute('data-depth')) || 0.05;
+        el.style.transform = `translate(${(-cx*40*d).toFixed(1)}px, ${(-cy*40*d).toFixed(1)}px)`;
+      });
+    });
+
+    // ===== Scroll progress (bar + ring) + back-to-top =====
+    const progress = $('#progress'); const ring = $('#ringProg'); const backTop = $('#backTop');
+    const updateProgress = () => {
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+      progress.style.transform = `scaleX(${Math.max(0,Math.min(1, scrolled))})`;
+      const pct = Math.round(scrolled*100);
+      ring.setAttribute('stroke-dasharray', `${pct} 100`);
+      backTop.classList.toggle('show', scrolled > .12);
+    };
+    document.addEventListener('scroll', updateProgress, {passive:true}); updateProgress();
+    backTop.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+    // ===== Reveal + nav spy =====
+    const sections = [...document.querySelectorAll('main section')];
+    const navLinks = [...document.querySelectorAll('header nav a')];
+    const byId = id => navLinks.find(a => a.getAttribute('href') === `#${id}`);
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ entry.target.classList.add('show'); }
+        if(entry.isIntersecting && entry.target.id){ navLinks.forEach(a=>a.classList.remove('active')); byId(entry.target.id)?.classList.add('active'); }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: .01 });
+    sections.forEach(s => { s.classList.add('reveal'); io.observe(s); });
+
+    // ===== Copy code =====
+    const copyBtn = document.querySelector('[data-copy]');
+    copyBtn?.addEventListener('click', async () => {
+      const text = document.getElementById('snippet').innerText;
+      try{ await navigator.clipboard.writeText(text); copyBtn.textContent='Copied!'; toast('Code copied'); setTimeout(()=>copyBtn.textContent='Copy',1000);}catch{ copyBtn.textContent='Failed'; toast('Copy failed','err'); }
+    });
+
+    // ===== Tabs =====
+    const tabs = $$('.tabs [role=tab]'); const panels = $$('#features .tabpanels [role=tabpanel]');
+    function activateTab(btn){ tabs.forEach(b=>b.setAttribute('aria-selected','false')); panels.forEach(p=>p.hidden = true); btn.setAttribute('aria-selected','true'); $('#'+btn.getAttribute('aria-controls')).hidden = false; }
+    tabs.forEach(b=>b.addEventListener('click', ()=>activateTab(b)));
+
+    // ===== Carousel (with swipe) =====
+    const carousel = $('#carousel');
+    if(carousel){
+      const slides = $('.slides', carousel);
+      const dots = $('.dotnav', carousel);
+      const count = $$('.slide', slides).length;
+      let idx = 0, startX = 0, dragging=false;
+      const set = i => { idx = (i+count)%count; slides.style.transform = `translateX(${-idx*100}%)`; renderDots(); };
+      const renderDots = () => { dots.innerHTML=''; for(let i=0;i<count;i++){ const b=document.createElement('button'); b.setAttribute('aria-current', i===idx); b.addEventListener('click', ()=>set(i)); dots.appendChild(b);} };
+      renderDots();
+      let timer = setInterval(()=>set(idx+1), 5000);
+      carousel.addEventListener('pointerenter', ()=>clearInterval(timer));
+      carousel.addEventListener('pointerleave', ()=>timer = setInterval(()=>set(idx+1), 5000));
+      slides.addEventListener('pointerdown', e=>{ dragging=true; startX=e.clientX; slides.setPointerCapture(e.pointerId); });
+      slides.addEventListener('pointerup', e=>{ if(!dragging) return; const dx=e.clientX-startX; if(dx>50) set(idx-1); else if(dx<-50) set(idx+1); dragging=false; });
+      $('#randomize')?.addEventListener('click', ()=>set(idx+1));
+    }
+
+    // ===== Modal & Toast =====
+    const modal = $('#modal');
+    $('#openModal').addEventListener('click', ()=>modal.style.display='grid');
+    $('#closeModal').addEventListener('click', ()=>modal.style.display='none');
+    modal.addEventListener('click', e=>{ if(e.target===modal) modal.style.display='none'; });
+    const toasts = $('#toasts');
+    function toast(msg, type){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; if(type==='err') t.style.borderColor='var(--err)'; toasts.appendChild(t); setTimeout(()=>t.remove(), 2400); }
+    $('#showToast').addEventListener('click', ()=>toast('Here is a toast ✨'));
+
+    // ===== Live filter + grid density =====
+    const filter = $('#filter'); const cards = $('#cards'); const gridCols = $('#gridCols'); const gridToggle = $('#gridToggle');
+    filter.addEventListener('input', () => {
+      const q = filter.value.toLowerCase();
+      $$('#cards .card').forEach(c=>{ const text = (c.textContent + ' ' + (c.dataset.tags||'')).toLowerCase(); c.style.display = text.includes(q) ? '' : 'none'; });
+    });
+    document.addEventListener('keydown', e=>{ if(e.key === '/'){ e.preventDefault(); filter.focus(); } });
+    let dense = false;
+    const updateGridCols = ()=>{ const cols = dense?4:3; cards.style.gridTemplateColumns = `repeat(${cols},1fr)`; gridCols.textContent = cols + ' cols'; };
+    gridToggle.addEventListener('click', ()=>{ dense=!dense; updateGridCols(); });
+    document.addEventListener('keydown', e=>{ if(e.key.toLowerCase()==='g'){ dense=!dense; updateGridCols(); }});
+    updateGridCols();
+
+    // ===== Draggable cards (reorder) =====
+    let dragEl=null;
+    $$('#cards .card').forEach(el=>{ el.classList.add('draggable'); el.draggable=true; el.addEventListener('dragstart', ()=>{ dragEl=el; el.style.opacity='.5'; }); el.addEventListener('dragend', ()=>{ dragEl=null; el.style.opacity=''; }); });
+    cards.addEventListener('dragover', e=>{ e.preventDefault(); const after = Array.from(cards.querySelectorAll('.draggable')).find(card=>{ const r=card.getBoundingClientRect(); return e.clientY < r.top + r.height/2; }); if(!dragEl) return; after ? cards.insertBefore(dragEl, after) : cards.appendChild(dragEl); });
+
+    // ===== Command palette (⌘/Ctrl+K) =====
+    const palette = $('#palette'); const palInput = $('#palInput');
+    function openPalette(){ palette.style.display='grid'; palInput.value=''; palInput.focus(); }
+    function closePalette(){ palette.style.display='none'; }
+    window.addEventListener('keydown', e=>{
+      const mac = navigator.platform.includes('Mac');
+      if((mac?e.metaKey:e.ctrlKey) && e.key.toLowerCase()==='k'){ e.preventDefault(); openPalette(); }
+      if(e.key==='Escape'){ closePalette(); $('#kbd').style.display='none'; }
+      if(e.key==='?' || (e.shiftKey && e.key==='/')){ $('#kbd').style.display='grid'; }
+      if(e.key.toLowerCase()==='t'){ themeBtn.click(); }
+    });
+    palette.addEventListener('click', e=>{ if(e.target===palette) closePalette(); });
+    palInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ const v = palInput.value.trim().toLowerCase(); const id = ['home','features','code','charts','table','notes','upload','timers','faq','contact'].find(s=>s.startsWith(v)); if(id){ location.hash = '#' + id; closePalette(); } }});
+    $('#kbdClose').addEventListener('click', ()=>$('#kbd').style.display='none');
+    $('#helpKbd').addEventListener('click', ()=>$('#kbd').style.display='grid');
+
+    // ===== Copy deep link =====
+    $('#copyLink').addEventListener('click', async ()=>{
+      const el = sections.find(s => s.getBoundingClientRect().top >= 0) || sections[0];
+      const url = location.origin + location.pathname + '#' + el.id;
+      try{ await navigator.clipboard.writeText(url); toast('Link copied'); }catch{ toast('Copy failed', 'err'); }
+    });
+
+    // ===== Clock + random quote =====
+    const clock = $('#clock'); const quotes = ["Stay curious.","Ship small, ship often.","Make it simple, then add lightness.","Details make the design.","Delight is in the micro‑interactions."];
+    function tick(){ const d = new Date(); clock.textContent = d.toLocaleTimeString(); }
+    setInterval(tick, 1000); tick(); toast(quotes[Math.floor(Math.random()*quotes.length)]);
+
+    // ===== Canvas chart =====
+    const ctx = $('#chart').getContext('2d');
+    function drawChart(data){
+      const W = ctx.canvas.width, H = ctx.canvas.height;
+      ctx.clearRect(0,0,W,H);
+      // axes
+      ctx.strokeStyle = 'rgba(255,255,255,.2)';
+      ctx.beginPath(); ctx.moveTo(40,20); ctx.lineTo(40,H-30); ctx.lineTo(W-10,H-30); ctx.stroke();
+      const max = Math.max(...data, 10);
+      const barW = (W-70)/data.length;
+      data.forEach((v,i)=>{
+        const h = (H-60)*(v/max);
+        const x = 45 + i*barW + 6;
+        const y = (H-30) - h;
+        // gradient
+        const g = ctx.createLinearGradient(0,y,0,y+h);
+        g.addColorStop(0, getComputedStyle(root).getPropertyValue('--accent').trim());
+        g.addColorStop(1, getComputedStyle(root).getPropertyValue('--accent2')?.trim() || '#60a5fa');
+        ctx.fillStyle = g;
+        ctx.fillRect(x, y, barW-12, h);
+      });
+    }
+    let chartData = Array.from({length:10}, ()=>Math.floor(Math.random()*100)+10);
+    drawChart(chartData);
+    $('#randChart').addEventListener('click', ()=>{ chartData = Array.from({length:10}, ()=>Math.floor(Math.random()*100)+10); drawChart(chartData); });
+    $('#downloadChart').addEventListener('click', ()=>{ const url = $('#chart').toDataURL('image/png'); const a=document.createElement('a'); a.href=url; a.download='chart.png'; a.click(); });
+
+    // ===== Sortable table =====
+    const tbl = $('#dataTbl'); const tbody = tbl.querySelector('tbody');
+    let rows = [
+      {name:'Alpha', score:72, date:'2025-08-01'},
+      {name:'Delta', score:91, date:'2025-06-11'},
+      {name:'Gamma', score:66, date:'2025-02-09'},
+      {name:'Beta',  score:84, date:'2025-04-22'},
+      {name:'Epsilon',score:77, date:'2025-07-15'}
+    ];
+    function renderRows(){ tbody.innerHTML = rows.map(r=>`<tr><td>${r.name}</td><td>${r.score}</td><td>${r.date}</td></tr>`).join(''); }
+    renderRows();
+    const sorts = [];
+    tbl.querySelectorAll('th').forEach(th=>th.addEventListener('click', e=>{
+      const key = th.dataset.key;
+      const idx = e.shiftKey ? sorts.findIndex(s=>s.key===key) : -1;
+      if(!e.shiftKey) sorts.length=0;
+      if(idx===-1) sorts.push({key, dir:1}); else sorts[idx].dir*=-1;
+      rows.sort((a,b)=>{
+        for(const s of sorts){
+          let av=a[s.key], bv=b[s.key];
+          if(s.key==='date'){ av=new Date(av); bv=new Date(bv); }
+          if(av<bv) return -1*s.dir; if(av>bv) return 1*s.dir;
+        }
+        return 0;
+      });
+      renderRows();
+    }));
+
+    // ===== Notes (autosave) =====
+    const note = $('#note'); note.value = load('notes','');
+    note.addEventListener('input', ()=>save('notes', note.value));
+    $('#exportNotes').addEventListener('click', ()=>{ const blob = new Blob([note.value], {type:'text/plain'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='notes.txt'; a.click(); });
+    $('#importNotes').addEventListener('change', async e=>{ const file=e.target.files[0]; if(!file) return; const text=await file.text(); note.value=text; save('notes', text); });
+    $('#clearNotes').addEventListener('click', ()=>{ note.value=''; save('notes',''); });
+
+    // ===== File drop & preview =====
+    const drop = $('#drop'); const pick = $('#filePick'); const preview = $('#preview');
+    function handleFiles(files){
+      preview.innerHTML='';
+      [...files].forEach(file=>{
+        const info = document.createElement('div'); info.className='sub'; info.textContent = `${file.name} • ${Math.round(file.size/1024)} KB`; preview.appendChild(info);
+        if(file.type.startsWith('image/')){ const img=document.createElement('img'); img.style.maxWidth='100%'; img.style.borderRadius='12px'; img.style.marginTop='.5rem'; img.alt=file.name; img.src=URL.createObjectURL(file); preview.appendChild(img); }
+        else if(file.type==='text/plain'){ file.text().then(t=>{ const pre=document.createElement('pre'); pre.textContent = t.slice(0,2000); preview.appendChild(pre); }); }
+      });
+    }
+    drop.addEventListener('click', ()=>pick.click());
+    pick.addEventListener('change', e=>handleFiles(e.target.files));
+    drop.addEventListener('dragover', e=>{ e.preventDefault(); drop.classList.add('hover'); });
+    drop.addEventListener('dragleave', ()=>drop.classList.remove('hover'));
+    drop.addEventListener('drop', e=>{ e.preventDefault(); drop.classList.remove('hover'); handleFiles(e.dataTransfer.files); });
+
+    // ===== Countdown & Pomodoro =====
+    const countInput=$('#countInput'), countDisp=$('#countDisp'); let countTimer=null;
+    $('#startCount').addEventListener('click', ()=>{
+      let t = parseInt(countInput.value||'60',10); countDisp.textContent=t;
+      countTimer && clearInterval(countTimer);
+      countTimer = setInterval(()=>{ t--; countDisp.textContent=t; if(t<=0){ clearInterval(countTimer); beep(); toast('Countdown done'); confetti(); } },1000);
+    });
+    let pomoTimer=null, pomoPhase='work', pomoLeft=0;
+    function startPomo(){ pomoPhase='work'; pomoLeft=25*60; runPomo(); }
+    function runPomo(){ clearInterval(pomoTimer); pomoTimer=setInterval(()=>{ pomoLeft--; $('#pomoDisp').textContent = `${pomoPhase} ${Math.floor(pomoLeft/60)}:${String(pomoLeft%60).padStart(2,'0')}`; if(pomoLeft<=0){ if(pomoPhase==='work'){ pomoPhase='break'; pomoLeft=5*60; toast('Break time'); } else { pomoPhase='work'; pomoLeft=25*60; toast('Back to work'); } beep(); confetti(); } },1000); }
+    $('#pomoStart').addEventListener('click', startPomo);
+    $('#pomoStop').addEventListener('click', ()=>{ clearInterval(pomoTimer); $('#pomoDisp').textContent='Idle'; });
+    function beep(){ try{ const a=new (window.AudioContext||window.webkitAudioContext)(); const o=a.createOscillator(); const g=a.createGain(); o.connect(g); g.connect(a.destination); o.start(); g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime+0.3); setTimeout(()=>a.close(),400); }catch{} }
+
+    // ===== Keyboard & palette =====
+    const paletteEl = $('#palette');
+    paletteEl.addEventListener('click', e=>{ if(e.target===paletteEl) closePalette(); });
+    $('#palInput').addEventListener('keydown', e=>{ if(e.key==='Escape') closePalette(); });
+
+    // ===== Grid tiles randomizer =====
+    function randomizeTiles(){ $$('#tiles .tile').forEach(t=>{ t.style.background = `radial-gradient(120px 60px at 30% 30%, hsla(${Math.floor(Math.random()*360)},80%,60%,.6), transparent 60%), linear-gradient(180deg,var(--card),var(--card2))`; }); }
+    $('#randomize')?.addEventListener('click', randomizeTiles);
+
+    // ===== Export/Import settings =====
+    $('#exportData').addEventListener('click', ()=>{
+      const data = { theme: document.body.dataset.theme||'', accent: getComputedStyle(root).getPropertyValue('--accent').trim(), font: load('font',16) };
+      const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='settings.json'; a.click();
+    });
+    $('#importBtn').addEventListener('click', ()=>$('#importData').click());
+    $('#importData').addEventListener('change', async e=>{
+      const file=e.target.files[0]; if(!file) return; const json=JSON.parse(await file.text());
+      if(json.theme!==undefined) applyTheme(json.theme);
+      if(json.accent) applyAccent(json.accent);
+      if(json.font) { fontRange.value=json.font; applyFont(json.font); }
+      toast('Settings imported');
+    });
+
+    // ===== Feature counter =====
+    const features = [
+      'Theme toggle','Accent color','Font slider','Spotlight BG','3D tilt','Parallax','Scroll bar','Scroll ring','Back-to-top','Reveal on view',
+      'Nav spy','Tooltips','Sticky header','Sticky sidebar','Tabs','Carousel','Swipe','Modal','Toasts','Command palette',
+      'Copy code','Deep-link copy','Live filter','Grid density toggle','Drag cards','Tiles glow','Canvas chart','Chart download','Sortable table','Autosave notes',
+      'Notes export','Notes import','File picker','Drag & drop','Image preview','Text preview','Countdown timer','Pomodoro','Clock','Random quote',
+      'Settings export','Settings import','Konami confetti','Keyboard help','Progressive print CSS','Accessible controls','ARIA roles','Keyboard shortcuts','Randomize tiles','Palette search'
+    ];
+    $('#featureCount').textContent = 'Features loaded: ' + features.length;
+
+    // ===== Konami code -> confetti =====
+    const KONAMI = [38,38,40,40,37,39,37,39,66,65]; let idx=0;
+    window.addEventListener('keydown', e=>{ if(e.keyCode===KONAMI[idx]){ idx++; if(idx===KONAMI.length){ confetti(); toast('🎉 Konami!'); idx=0; } } else { idx=0; } });
+
+    // ===== Confetti (minimal) =====
+    function confetti(){
+      const c=document.createElement('canvas'); c.width=window.innerWidth; c.height=window.innerHeight; c.style.position='fixed'; c.style.inset=0; c.style.zIndex=90; c.style.pointerEvents='none'; document.body.appendChild(c);
+      const cx=c.getContext('2d'); const pieces = Array.from({length:140},()=>({ x:Math.random()*c.width, y:-20-Math.random()*c.height, r:4+Math.random()*6, vx:-2+Math.random()*4, vy:2+Math.random()*3, col:`hsl(${Math.random()*360} 90% 60%)`}));
+      let t=0; function step(){ cx.clearRect(0,0,c.width,c.height); pieces.forEach(p=>{ p.vy+=0.02; p.x+=p.vx; p.y+=p.vy; cx.fillStyle=p.col; cx.beginPath(); cx.arc(p.x,p.y,p.r,0,Math.PI*2); cx.fill(); }); t++; if(t<200) requestAnimationFrame(step); else c.remove(); } step();
+    }
+
+    // ===== Help modal toggles =====
+    const helpModal = $('#kbd');
+    helpModal.addEventListener('click', e=>{ if(e.target===helpModal) helpModal.style.display='none'; });
+
+    // ===== URL param trigger =====
+    const url = new URL(location.href);
+    if(url.searchParams.get('toast')) toast(url.searchParams.get('toast'));
+
+  </script>
+</body>
+</html>
