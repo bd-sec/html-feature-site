@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Ultra Interactive One‑Pager — 75+ Features, Mobile‑First, Self‑Download</title>
+  <title>Ultra Interactive — 90+ Features • Mobile‑First • PWA • Self‑Download</title>
   <meta name="color-scheme" content="dark light">
   <style>
     /* ===== THEME & BASE ===== */
@@ -19,6 +19,11 @@
     }
     [data-theme="light"]{ --bg:#f7f9ff; --bg2:#eef3ff; --text:#101a2e; --muted:#556382; --card:#ffffff; --card2:#f4f7ff; --shadow:0 8px 24px rgba(16,26,46,.12); }
     [data-contrast="high"]{ --muted: color-mix(in oklab, var(--text) 60%, #64748b) }
+    [data-saver="on"]{
+      --shadow: none;
+      --bg: #0c0f18; --bg2:#0c0f18;
+      background-attachment: initial !important;
+    }
     *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
     html{scroll-behavior:smooth;font-size:var(--base)}
     body{
@@ -36,8 +41,8 @@
     .skip{position:absolute;left:-999px;top:-999px;background:#111827;color:#e5e7eb;padding:.5rem .75rem;border-radius:10px}
     .skip:focus{left:16px;top:16px;z-index:100}
     kbd{padding:.1rem .35rem;border:1px solid rgba(255,255,255,.2);border-bottom-width:2px;border-radius:6px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    .progress{position:fixed;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform-origin:left;transform:scaleX(0);z-index:80}
-    header{position:sticky;top:0;z-index:70;backdrop-filter:saturate(120%) blur(12px);background:linear-gradient(180deg,rgba(0,0,0,.35),transparent);border-bottom:1px solid rgba(255,255,255,.08)}
+    .progress{position:fixed;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform-origin:left;transform:scaleX(0);z-index:90}
+    header{position:sticky;top:0;z-index:85;backdrop-filter:saturate(120%) blur(12px);background:linear-gradient(180deg,rgba(0,0,0,.35),transparent);border-bottom:1px solid rgba(255,255,255,.08)}
     .nav{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:.6rem 0}
     .brand{display:flex;gap:.6rem;align-items:center;font-weight:800}
     .dot{width:12px;height:12px;border-radius:999px;background:conic-gradient(var(--accent),var(--accent2),var(--accent)); box-shadow:0 0 12px color-mix(in oklab, var(--accent) 80%, transparent)}
@@ -51,7 +56,7 @@
     .with-sidebar{display:grid;grid-template-columns:280px 1fr;gap:1.25rem}
     .sidebar{position:sticky;top:64px;align-self:start;background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.75rem;box-shadow:var(--shadow)}
     .sidebar details{margin:.3rem 0}
-    section{padding:90px 0}
+    section{padding:90px 0; content-visibility:auto; contain-intrinsic-size:1px 500px;}
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;min-height:70vh}
     .headline{font-size:clamp(2rem,6vw,4rem);line-height:1.08;margin:.2rem 0}
     .sub{color:var(--muted);max-width:70ch}
@@ -94,17 +99,17 @@
     .carousel .dotnav{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);display:flex;gap:6px}
     .carousel .dotnav button{width:8px;height:8px;border-radius:99px;border:0;background:#cbd5e1;opacity:.5}
     .carousel .dotnav button[aria-current="true"]{opacity:1;background:var(--accent2)}
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.48);display:none;place-items:center;z-index:90}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.48);display:none;place-items:center;z-index:95}
     .modal .panel{width:min(560px,90vw);background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1rem;box-shadow:var(--shadow)}
-    .toastwrap{position:fixed;right:16px;bottom:calc(16px + var(--safe-b));display:flex;flex-direction:column;gap:.5rem;z-index:95}
+    .toastwrap{position:fixed;right:16px;bottom:calc(16px + var(--safe-b));display:flex;flex-direction:column;gap:.5rem;z-index:96}
     .toast{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:.6rem .9rem;box-shadow:var(--shadow)}
-    .net{position:fixed;left:16px;bottom:calc(16px + var(--safe-b));z-index:85}
-    .backtop{position:fixed;right:16px;bottom:calc(16px + var(--safe-b));z-index:85;transform:translateY(120%);transition:transform .2s}
+    .net{position:fixed;left:16px;bottom:calc(16px + var(--safe-b));z-index:86}
+    .backtop{position:fixed;right:16px;bottom:calc(16px + var(--safe-b));z-index:86;transform:translateY(120%);transition:transform .2s}
     .backtop.show{transform:none}
-    .ring{position:fixed;right:20px;top:70px;width:48px;height:48px;z-index:85}
+    .ring{position:fixed;right:20px;top:70px;width:48px;height:48px;z-index:86}
     .search{display:flex;gap:.5rem;align-items:center;margin:.75rem 0}
     .search input{flex:1;background:#0c1424;color:var(--text);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:.6rem .8rem}
-    .kbd-help{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;place-items:center;z-index:92}
+    .kbd-help{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;place-items:center;z-index:93}
     .kbd-help .panel{width:min(720px,92vw);background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1rem;box-shadow:var(--shadow)}
     .data-table{width:100%;border-collapse:collapse;background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden}
     .data-table th,.data-table td{padding:.65rem .8rem;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -115,7 +120,7 @@
     .chart{width:100%;height:260px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,var(--card),var(--card2));box-shadow:var(--shadow)}
     footer{padding:60px 0 calc(60px + var(--safe-b));color:var(--muted);text-align:center}
     @media print{
-      header,.progress,.backtop,.ring,.toastwrap,.modal,.kbd-help,.mobilebar{display:none !important}
+      header,.progress,.backtop,.ring,.toastwrap,.modal,.kbd-help,.mobilebar,.sheet{display:none !important}
       body{background:#fff;color:#000} .card,.sidebar,.tabpanels{box-shadow:none;border-color:#ddd}
     }
     .reveal{opacity:0;transform:translateY(24px);transition:opacity var(--anim),transform var(--anim)}
@@ -130,6 +135,8 @@
       .controls{gap:.3rem}
       .sidebar{display:none} /* hidden on small; use drawer */
       .drawer{display:block}
+      main{scroll-snap-type: y proximity}
+      main > .wrap > div > section{scroll-snap-align: start}
     }
     @media (max-width: 640px){
       .grid{grid-template-columns:1fr}
@@ -146,6 +153,16 @@
     @media (max-width: 960px){ .mobilebar{display:block} }
     .mobilebar .bar{display:flex;justify-content:space-around;gap:.5rem}
     .mobilebar a{display:flex;align-items:center;justify-content:center;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,.12);text-decoration:none;background:linear-gradient(180deg,var(--card),var(--card2))}
+
+    /* Bottom sheet */
+    .sheet{position:fixed;left:0;right:0;bottom:0;transform:translateY(65%);transition:transform .25s ease;z-index:96}
+    .sheet.show{transform:translateY(0)}
+    .sheet .panel{border-radius:16px 16px 0 0;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,var(--card),var(--card2));box-shadow:var(--shadow);padding:1rem}
+    .sheet .handle{width:44px;height:5px;background:rgba(255,255,255,.35);border-radius:99px;margin:0 auto .6rem}
+
+    /* Data saver visuals */
+    [data-saver="on"] .art, [data-saver="on"] .tile, [data-saver="on"] .card{background:var(--card); box-shadow:none}
+    [data-saver="on"] .blob, [data-saver="on"] .ring, [data-saver="on"] .flare, [data-saver="on"] .grid{display:none}
   </style>
 </head>
 <body>
@@ -155,27 +172,33 @@
     <div class="wrap nav">
       <div class="brand"><span class="dot" aria-hidden="true"></span> Ultra Interactive</div>
       <nav aria-label="Primary" class="hide-on-mobile">
-        <a href="#home" class="active">Home</a>
-        <a href="#features">Features</a>
-        <a href="#code">Code</a>
-        <a href="#charts">Charts</a>
-        <a href="#table">Table</a>
-        <a href="#notes">Notes</a>
-        <a href="#upload">Upload</a>
-        <a href="#timers">Timers</a>
-        <a href="#device">Device</a>
-        <a href="#download">Download</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
+        <a href="#home" class="active" data-i18n="home">Home</a>
+        <a href="#features" data-i18n="features">Features</a>
+        <a href="#code" data-i18n="code">Code</a>
+        <a href="#charts" data-i18n="charts">Charts</a>
+        <a href="#table" data-i18n="table">Table</a>
+        <a href="#notes" data-i18n="notes">Notes</a>
+        <a href="#upload" data-i18n="upload">Upload</a>
+        <a href="#timers" data-i18n="timers">Timers</a>
+        <a href="#device" data-i18n="device">Device</a>
+        <a href="#camera" data-i18n="camera">Camera</a>
+        <a href="#download" data-i18n="download">Download</a>
+        <a href="#faq" data-i18n="faq">FAQ</a>
+        <a href="#contact" data-i18n="contact">Contact</a>
       </nav>
       <div class="controls">
         <button class="toggle" id="menuBtn" title="Open menu">☰</button>
         <button class="toggle" id="themeBtn" title="Toggle theme (T)">Theme</button>
         <div class="color" id="colorBtn" title="Accent color"></div>
         <label class="chip" title="Font size"><input id="fontRange" class="slider" type="range" min="14" max="20" value="16"></label>
+        <button class="toggle" id="contrastBtn" title="High contrast">A11y</button>
+        <button class="toggle" id="saverBtn" title="Data saver">Saver</button>
+        <button class="toggle" id="wakeBtn" title="Keep screen awake">Wake</button>
+        <button class="toggle" id="fsBtn" title="Fullscreen">⛶</button>
+        <button class="toggle" id="installBtn" style="display:none" title="Install app">Install</button>
         <button class="toggle" id="helpKbd" title="Keyboard shortcuts (?)">?</button>
         <button class="toggle" id="shareBtn" title="Share">Share</button>
-        <button class="toggle" id="contrastBtn" title="High contrast">A11y</button>
+        <button class="toggle" id="langBtn" title="Language">EN</button>
         <span class="chip" id="clock" aria-live="polite"></span>
       </div>
     </div>
@@ -185,7 +208,7 @@
   <aside id="drawer" class="drawer" aria-label="Mobile menu" aria-hidden="true">
     <h3 style="margin-top:0">Menu</h3>
     <nav style="display:grid;gap:.35rem">
-      <a href="#home">Home</a><a href="#features">Features</a><a href="#code">Code</a><a href="#charts">Charts</a><a href="#table">Table</a><a href="#notes">Notes</a><a href="#upload">Upload</a><a href="#timers">Timers</a><a href="#device">Device</a><a href="#download">Download</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+      <a href="#home">Home</a><a href="#features">Features</a><a href="#code">Code</a><a href="#charts">Charts</a><a href="#table">Table</a><a href="#notes">Notes</a><a href="#upload">Upload</a><a href="#timers">Timers</a><a href="#device">Device</a><a href="#camera">Camera</a><a href="#download">Download</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
     </nav>
     <hr style="border-color:rgba(255,255,255,.08)">
     <div style="display:flex;flex-wrap:wrap;gap:.35rem">
@@ -216,7 +239,7 @@
         <li><kbd>G</kbd> — Toggle grid density</li>
         <li><kbd>J</kbd>/<kbd>K</kbd> — Next/Prev section</li>
         <li><kbd>?</kbd> — This help</li>
-        <li>Konami code — Confetti</li>
+        <li>Shake device — Confetti</li>
       </ul>
       <div style="display:flex;gap:.5rem;justify-content:flex-end"><button class="btn secondary" id="kbdClose">Close</button></div>
     </div>
@@ -227,7 +250,7 @@
       <details open>
         <summary>Jump to</summary>
         <nav style="display:grid;gap:.25rem;margin-top:.5rem">
-          <a href="#home">Home</a><a href="#features">Features</a><a href="#code">Code</a><a href="#charts">Charts</a><a href="#table">Table</a><a href="#notes">Notes</a><a href="#upload">Upload</a><a href="#timers">Timers</a><a href="#device">Device</a><a href="#download">Download</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+          <a href="#home">Home</a><a href="#features">Features</a><a href="#code">Code</a><a href="#charts">Charts</a><a href="#table">Table</a><a href="#notes">Notes</a><a href="#upload">Upload</a><a href="#timers">Timers</a><a href="#device">Device</a><a href="#camera">Camera</a><a href="#download">Download</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
         </nav>
       </details>
       <details>
@@ -254,19 +277,19 @@
           <button class="toggle" id="resetSettings">Reset settings</button>
         </div>
       </details>
-      <div class="net"><span class="chip" id="netStatus">Online</span></div>
+      <div class="net"><span class="chip" id="netStatus">Online</span> <span class="chip" id="connInfo" title="Connection"></span></div>
     </aside>
 
     <div>
       <section class="hero" id="top">
         <div>
           <div class="badge" data-tip="Animated gradient, spotlight, and more">All in one</div>
-          <h1 class="headline">A single HTML file packed with polish</h1>
-          <p class="sub">Hover highlights, 3D tilt, parallax art, syntax‑highlighted code with copy, scroll progress + ring, tooltips, reveal animations, theme + accent persistence, command palette, carousel, tabs, modal, toast, live search, D&D cards, sortable table, canvas chart, file drop, notes autosave, image filters, timers, device APIs, drawer menu, bottom bar, haptics, dictation, geolocation, self‑download, and more.</p>
+          <h1 class="headline" data-i18n="headline">A single HTML file packed with polish</h1>
+          <p class="sub" data-i18n="tagline">Hover highlights, 3D tilt, parallax art, syntax‑highlighted code with copy, scroll progress + ring, tooltips, reveal animations, theme + accent persistence, command palette, carousel, tabs, modal, toast, live search, D&D cards, sortable table, canvas chart, file drop, notes autosave, image filters, timers, device APIs, drawer menu, bottom bar, haptics, dictation, geolocation, camera, PWA offline, install prompt, self‑download, and more.</p>
           <div style="display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap">
-            <a class="btn" href="#features">Explore features</a>
-            <a class="btn secondary" href="#download">Download this page</a>
-            <a class="btn secondary" href="#contact">Get in touch</a>
+            <a class="btn" href="#features" data-i18n="explore">Explore features</a>
+            <a class="btn secondary" href="#download" data-i18n="downloadThis">Download this page</a>
+            <a class="btn secondary" href="#contact" data-i18n="getInTouch">Get in touch</a>
           </div>
           <p class="sub" style="margin-top:.75rem" id="featureCount">Features loaded: …</p>
         </div>
@@ -363,6 +386,7 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
           <button class="btn secondary" id="clearNotes">Clear</button>
           <button class="btn secondary" id="dictateBtn">🎙 Dictate</button>
           <button class="btn secondary" id="speakBtn">🔊 Read</button>
+          <button class="btn secondary" id="saveNotesFile">💾 Save as file</button>
         </div>
       </section>
 
@@ -383,14 +407,18 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
               <input id="countInput" type="number" min="1" max="600" value="60" style="width:90px" /> <span class="sub">seconds</span>
               <button class="btn" id="startCount">Start</button>
               <span id="countDisp" class="chip">60</span>
+              <label class="chip" title="Wake lock"><input type="checkbox" id="countWake"> Keep awake</label>
+              <label class="chip" title="Notify"><input type="checkbox" id="countNotify"> Notify</label>
             </div>
           </div>
           <div class="card">
             <h3>Pomodoro</h3>
-            <div style="display:flex;gap:.4rem;align-items:center">
+            <div style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap">
               <button class="btn" id="pomoStart">Start (25/5)</button>
               <button class="btn secondary" id="pomoStop">Stop</button>
               <span id="pomoDisp" class="chip">Idle</span>
+              <label class="chip"><input type="checkbox" id="pomoWake"> Keep awake</label>
+              <label class="chip"><input type="checkbox" id="pomoNotify"> Notify</label>
             </div>
           </div>
         </div>
@@ -398,15 +426,29 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
 
       <section id="device" class="reveal">
         <h2 style="margin:0 0 .75rem">Device Features</h2>
-        <p class="sub">Mobile-friendly extras: haptics, geolocation, orientation-based parallax.</p>
+        <p class="sub">Mobile-friendly extras: haptics, geolocation, orientation-based parallax, connection info.</p>
         <div style="display:flex;gap:.5rem;flex-wrap:wrap">
           <button class="btn" id="vibeBtn">Vibrate</button>
           <button class="btn secondary" id="geoBtn">Locate me</button>
           <span class="chip" id="geoOut">Location: unknown</span>
           <span class="chip" id="orientOut">Orientation: n/a</span>
+          <span class="chip" id="shakeOut">Shake: n/a</span>
         </div>
         <canvas id="pad" class="chart" width="1000" height="240" aria-label="Doodle pad"></canvas>
         <div class="sub">Draw with your finger or mouse. Long-press clears.</div>
+      </section>
+
+      <section id="camera" class="reveal">
+        <h2 style="margin:0 0 .75rem">Camera</h2>
+        <p class="sub">Capture from your device camera (requires HTTPS or localhost). Toggle torch if supported.</p>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+          <button class="btn" id="camStart">Start camera</button>
+          <button class="btn secondary" id="camSnap">Snapshot</button>
+          <button class="btn secondary" id="camTorch">Torch</button>
+          <span class="chip" id="camState">Off</span>
+        </div>
+        <video id="cam" playsinline autoplay muted style="width:100%;border-radius:12px;margin-top:.5rem;max-height:360px;background:#000"></video>
+        <canvas id="snap" class="chart" width="1000" height="260" aria-label="Snapshot"></canvas>
       </section>
 
       <section id="download" class="reveal">
@@ -416,13 +458,14 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
           <button class="btn" id="downloadSelf">Download index.html</button>
           <button class="btn secondary" id="copyHTML">Copy HTML</button>
           <button class="btn secondary" id="viewSource">View source</button>
+          <button class="btn secondary" id="installHint" style="display:none">How to add to Home Screen</button>
         </div>
         <details style="margin-top:.6rem"><summary>Inline source (generated on demand)</summary><pre><code id="sourceBox" style="white-space:pre-wrap"></code></pre></details>
       </section>
 
       <section id="faq" class="reveal">
         <h2 style="margin:0 0 .75rem">FAQ</h2>
-        <details open><summary>Is everything really in one file?</summary><div class="sub">Yes. All CSS and JS live in this HTML for easy drop‑in hosting.</div></details>
+        <details open><summary>Is everything really in one file?</summary><div class="sub">Yes. All CSS and JS live in this HTML for easy drop‑in hosting. It also includes an inlined Service Worker to enable offline caching once installed.</div></details>
         <details><summary>Does it respect reduced motion?</summary><div class="sub">Yes. If your system prefers reduced motion, animations and auto-scrolling are minimized.</div></details>
         <details><summary>How do I export my settings?</summary><div class="sub">Use “Export settings” in the sidebar. It includes theme, accent, font size, and more.</div></details>
       </section>
@@ -452,6 +495,18 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
       <a href="#contact">Contact</a>
     </div>
   </nav>
+
+  <div class="sheet" id="sheet" aria-label="Quick Actions">
+    <div class="panel wrap">
+      <div class="handle"></div>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center">
+        <a class="btn" href="#download">Download</a>
+        <button class="btn secondary" id="sheetShare">Share</button>
+        <a class="btn secondary" href="#contact">Contact</a>
+        <button class="btn secondary" id="sheetClose">Close</button>
+      </div>
+    </div>
+  </div>
 
   <button class="btn backtop" id="backTop" aria-label="Back to top">↑ Top</button>
   <svg class="ring" viewBox="0 0 36 36" aria-hidden="true">
@@ -485,25 +540,89 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
     // Button ripple + haptics
     document.addEventListener('pointerdown', e=>{ const t=e.target.closest('.btn, .toggle'); if(t){ ripple(e); haptic(8); } }, {passive:true});
 
+    // ===== PWA: manifest + SW registration (inline) =====
+    (function(){
+      const iconSVG = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%237c3aed'/><stop offset='1' stop-color='%2360a5fa'/></linearGradient></defs><rect rx='14' width='64' height='64' fill='url(%23g)'/><circle cx='32' cy='18' r='6' fill='white' opacity='.9'/><circle cx='18' cy='46' r='6' fill='white' opacity='.9'/><circle cx='46' cy='46' r='6' fill='white' opacity='.9'/></svg>`;
+      const manifest = {
+        name: 'Ultra Interactive',
+        short_name: 'Ultra',
+        start_url: '.',
+        display: 'standalone',
+        background_color: getComputedStyle(root).getPropertyValue('--bg').trim() || '#0b1220',
+        theme_color: getComputedStyle(root).getPropertyValue('--accent').trim() || '#7c3aed',
+        icons: [{ src: 'data:image/svg+xml;base64,'+btoa(iconSVG), sizes: 'any', type: 'image/svg+xml' }]
+      };
+      const manURL = URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type:'application/json'}));
+      const link = document.createElement('link'); link.rel='manifest'; link.href=manURL; document.head.appendChild(link);
+
+      if('serviceWorker' in navigator){
+        const sw = `
+          const CACHE='ui-v1';
+          self.addEventListener('install', e=>{ e.waitUntil((async()=>{ const c=await caches.open(CACHE); try{ await c.addAll([self.registration.scope]); }catch(e){} })()); });
+          self.addEventListener('activate', e=>{ e.waitUntil((async()=>{ const keys=await caches.keys(); await Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))); })()); });
+          self.addEventListener('fetch', e=>{
+            const url = new URL(e.request.url);
+            if(e.request.method!=='GET') return;
+            e.respondWith((async()=>{
+              try{
+                const res = await fetch(e.request);
+                const c = await caches.open(CACHE); c.put(e.request, res.clone());
+                return res;
+              }catch(_){
+                const cached = await caches.match(e.request);
+                if(cached) return cached;
+                if(url.origin===location.origin) return caches.match(self.registration.scope);
+                throw _;
+              }
+            })());
+          });
+        `;
+        const swURL = URL.createObjectURL(new Blob([sw], {type:'text/javascript'}));
+        navigator.serviceWorker.register(swURL).catch(()=>{});
+      }
+    })();
+
+    // A2HS prompt
+    let deferredPrompt=null;
+    const installBtn = $('#installBtn'); const installHint = $('#installHint');
+    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt=e; installBtn.style.display='inline-block'; });
+    installBtn.addEventListener('click', async ()=>{ try{ await deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; installBtn.style.display='none'; }catch{} });
+    // iOS hint (no beforeinstallprompt)
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+    if(isIOS) installHint.style.display='inline-block';
+    installHint.addEventListener('click', ()=>toast('Tap Share → “Add to Home Screen”'));
+
     // ===== Theme / Accent / Font size (persist) =====
-    const themeBtn = $('#themeBtn'); const colorBtn = $('#colorBtn'); const fontRange = $('#fontRange'); const contrastBtn = $('#contrastBtn');
-    const applyTheme = t => { document.body.dataset.theme = t; save('theme',t); };
+    const themeBtn = $('#themeBtn'); const colorBtn = $('#colorBtn'); const fontRange = $('#fontRange'); const contrastBtn = $('#contrastBtn'); const saverBtn = $('#saverBtn');
+    const applyTheme = t => { const run=()=>{ document.body.dataset.theme = t; save('theme',t); }; if(document.startViewTransition){ document.startViewTransition(run); } else run(); };
     const applyAccent = c => { root.style.setProperty('--accent', c); colorBtn.style.background = c; save('accent', c); };
     const applyFont = n => { root.style.setProperty('--base', n+'px'); save('font', n); };
     const applyContrast = v => { document.body.dataset.contrast = v ? 'high' : ''; save('contrast', !!v); };
-    applyTheme(load('theme','')); applyAccent(load('accent', getComputedStyle(root).getPropertyValue('--accent').trim())); applyFont(load('font', 16)); applyContrast(load('contrast', false));
+    const applySaver = v => { document.body.dataset.saver = v ? 'on' : ''; save('saver', !!v); };
+    applyTheme(load('theme','')); applyAccent(load('accent', getComputedStyle(root).getPropertyValue('--accent').trim())); applyFont(load('font', 16)); applyContrast(load('contrast', false)); applySaver(load('saver', false));
     // Auto-theme by time if not set
     if(localStorage.getItem('theme')===null){ const h=(new Date).getHours(); if(h<7 || h>18) applyTheme(''); else applyTheme('light'); }
 
     themeBtn.addEventListener('click', ()=>applyTheme(document.body.dataset.theme === 'light' ? '' : 'light'));
-    colorBtn.addEventListener('click', ()=>{ const rand = `hsl(${Math.floor(Math.random()*360)} 85% 60%)`; applyAccent(rand); toast('Accent updated'); checkContrast(); });
+    colorBtn.addEventListener('click', ()=>{ const rand = `hsl(${Math.floor(Math.random()*360)} 85% 60%)`; applyAccent(rand); toast('Accent updated'); });
     fontRange.addEventListener('input', ()=>applyFont(fontRange.value));
     contrastBtn.addEventListener('click', ()=>applyContrast(document.body.dataset.contrast!=='high'));
+    saverBtn.addEventListener('click', ()=>applySaver(document.body.dataset.saver!=='on'));
     $('#resetSettings').addEventListener('click', ()=>{ localStorage.clear(); toast('Settings cleared'); setTimeout(()=>location.reload(),500); });
     // Presets
     $('#preset1').addEventListener('click', ()=>applyAccent('#7c3aed'));
     $('#preset2').addEventListener('click', ()=>applyAccent('#14b8a6'));
     $('#preset3').addEventListener('click', ()=>applyAccent('#f97316'));
+
+    // ===== Language toggle (EN/ES demo) =====
+    const strings = {
+      en: { home:'Home', features:'Features', code:'Code', charts:'Charts', table:'Table', notes:'Notes', upload:'Upload', timers:'Timers', device:'Device', camera:'Camera', download:'Download', faq:'FAQ', contact:'Contact', headline:'A single HTML file packed with polish', tagline:'Hover highlights, 3D tilt, parallax art, syntax‑highlighted code with copy, scroll progress + ring, tooltips, reveal animations, theme + accent persistence, command palette, carousel, tabs, modal, toast, live search, D&D cards, sortable table, canvas chart, file drop, notes autosave, image filters, timers, device APIs, drawer menu, bottom bar, haptics, dictation, geolocation, camera, PWA offline, install prompt, self‑download, and more.', explore:'Explore features', downloadThis:'Download this page', getInTouch:'Get in touch' },
+      es: { home:'Inicio', features:'Funciones', code:'Código', charts:'Gráficas', table:'Tabla', notes:'Notas', upload:'Subir', timers:'Temporizadores', device:'Dispositivo', camera:'Cámara', download:'Descargar', faq:'Preguntas', contact:'Contacto', headline:'Un solo archivo HTML lleno de detalles', tagline:'Resaltado con el cursor, inclinación 3D, arte con paralaje, código con copia, progreso de desplazamiento + anillo, tooltips, animaciones, tema + acento persistentes, paleta de comandos, carrusel, pestañas, modal, notificaciones, búsqueda en vivo, tarjetas arrastrables, tabla ordenable, gráfico en canvas, arrastrar archivos, notas auto‑guardadas, filtros de imagen, temporizadores, APIs del dispositivo, menú de cajón, barra inferior, hápticos, dictado, geolocalización, cámara, PWA sin conexión, instalación, descarga propia y más.', explore:'Explorar funciones', downloadThis:'Descargar esta página', getInTouch:'Contactar' }
+    };
+    const langBtn = $('#langBtn');
+    function applyLang(l){ save('lang', l); langBtn.textContent = l.toUpperCase(); $$('[data-i18n]').forEach(el=>{ const key=el.dataset.i18n; if(strings[l][key]) el.textContent = strings[l][key]; }); }
+    applyLang(load('lang','en'));
+    langBtn.addEventListener('click', ()=>applyLang(langBtn.textContent.trim().toLowerCase()==='en' ? 'es' : 'en'));
 
     // ===== Safe mobile 100vh fix =====
     const setVH = ()=>{ document.body.style.setProperty('--vh', window.innerHeight * 0.01 + 'px'); };
@@ -524,22 +643,10 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
     const shareBtn = $('#shareBtn');
     if(!('share' in navigator)) shareBtn.style.display='none';
     shareBtn.addEventListener('click', ()=>navigator.share({title: document.title, url: location.href}).catch(()=>{}));
+    $('#sheetShare').addEventListener('click', ()=>navigator.share?.({title: document.title, url: location.href}));
 
     // ===== Body spotlight background =====
     window.addEventListener('pointermove', e => { root.style.setProperty('--mx', e.clientX + 'px'); root.style.setProperty('--my', e.clientY + 'px'); });
-
-    // ===== Device orientation parallax (mobile) =====
-    const orientOut = $('#orientOut');
-    if(window.DeviceOrientationEvent){
-      window.addEventListener('deviceorientation', e=>{
-        const ax = (e.gamma||0)/45, ay = (e.beta||0)/45;
-        orientOut.textContent = `Orientation: ${Math.round((e.alpha||0))}°`;
-        document.querySelectorAll('.parallax [data-depth]').forEach(el=>{
-          const d = parseFloat(el.getAttribute('data-depth'))||0.05;
-          el.style.transform = `translate(${(-ax*40*d).toFixed(1)}px, ${(-ay*40*d).toFixed(1)}px)`;
-        });
-      });
-    }
 
     // ===== 3D tilt, glows, parallax =====
     $$('.tilt').forEach(card => {
@@ -563,6 +670,19 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
         el.style.transform = `translate(${(-cx*40*d).toFixed(1)}px, ${(-cy*40*d).toFixed(1)}px)`;
       });
     });
+
+    // Device orientation parallax (mobile)
+    const orientOut = $('#orientOut');
+    if(window.DeviceOrientationEvent){
+      window.addEventListener('deviceorientation', e=>{
+        const ax = (e.gamma||0)/45, ay = (e.beta||0)/45;
+        orientOut.textContent = `Orientation: ${Math.round((e.alpha||0))}°`;
+        document.querySelectorAll('.parallax [data-depth]').forEach(el=>{
+          const d = parseFloat(el.getAttribute('data-depth'))||0.05;
+          el.style.transform = `translate(${(-ax*40*d).toFixed(1)}px, ${(-ay*40*d).toFixed(1)}px)`;
+        });
+      });
+    }
 
     // ===== Scroll progress (bar + ring) + back-to-top =====
     const progress = $('#progress'); const ring = $('#ringProg'); const backTop = $('#backTop');
@@ -592,8 +712,8 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
     // Keyboard J/K to move between sections
     window.addEventListener('keydown', e=>{
       if(['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
-      const ids = sections.map(s=>s.id);
       if(e.key.toLowerCase()==='j' || e.key.toLowerCase()==='k'){
+        const ids = sections.map(s=>s.id);
         const y = window.scrollY + 10;
         const idx = sections.findIndex(s=>s.offsetTop > y) - 1;
         let target;
@@ -641,6 +761,7 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
     modal.addEventListener('click', e=>{ if(e.target===modal) modal.style.display='none'; });
     const toasts = $('#toasts');
     function toast(msg, type){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; if(type==='err') t.style.borderColor='var(--err)'; toasts.appendChild(t); setTimeout(()=>t.remove(), 2400); }
+    $('#showToast').addEventListener('click', ()=>toast('Here is a toast ✨'));
 
     // ===== Live filter + grid density + save layout order =====
     const filter = $('#filter'); const cards = $('#cards'); const gridCols = $('#gridCols'); const gridToggle = $('#gridToggle');
@@ -681,7 +802,7 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
       if(e.key.toLowerCase()==='t'){ themeBtn.click(); }
     });
     palette.addEventListener('click', e=>{ if(e.target===palette) closePalette(); });
-    palInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ const v = palInput.value.trim().toLowerCase(); const id = ['home','features','code','charts','table','notes','upload','timers','device','download','faq','contact'].find(s=>s.startsWith(v)); if(id){ location.hash = '#' + id; closePalette(); } }});
+    palInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ const v = palInput.value.trim().toLowerCase(); const id = ['home','features','code','charts','table','notes','upload','timers','device','camera','download','faq','contact'].find(s=>s.startsWith(v)); if(id){ location.hash = '#' + id; closePalette(); } }});
     $('#kbdClose').addEventListener('click', ()=>$('#kbd').style.display='none');
     $('#helpKbd').addEventListener('click', ()=>$('#kbd').style.display='grid');
 
@@ -751,12 +872,23 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
       renderRows();
     }));
 
-    // ===== Notes (autosave + TTS + Dictation) =====
+    // ===== Notes (autosave + TTS + Dictation + File Save) =====
     const note = $('#note'); if(note){ note.value = load('notes',''); note.addEventListener('input', ()=>save('notes', note.value)); }
     $('#exportNotes')?.addEventListener('click', ()=>{ const blob = new Blob([note.value], {type:'text/plain'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='notes.txt'; a.click(); });
     $('#importNotes')?.addEventListener('change', async e=>{ const file=e.target.files[0]; if(!file) return; const text=await file.text(); note.value=text; save('notes', text); });
     $('#clearNotes')?.addEventListener('click', ()=>{ note.value=''; save('notes',''); });
     $('#speakBtn')?.addEventListener('click', ()=>{ const u=new SpeechSynthesisUtterance(note.value||'No notes'); speechSynthesis.speak(u); });
+    // Save as file (File System Access API)
+    $('#saveNotesFile')?.addEventListener('click', async ()=>{
+      if(window.showSaveFilePicker){
+        try{
+          const h=await showSaveFilePicker({suggestedName:'notes.txt', types:[{description:'Text', accept:{'text/plain':['.txt']}}]});
+          const w=await h.createWritable(); await w.write(note.value); await w.close(); toast('Saved to file');
+        }catch{ toast('Save canceled','err'); }
+      }else{
+        const blob = new Blob([note.value], {type:'text/plain'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='notes.txt'; a.click();
+      }
+    });
     // Dictation
     const dictateBtn = $('#dictateBtn'); let rec=null;
     if(!('webkitSpeechRecognition' in window)) dictateBtn.style.display='none';
@@ -767,11 +899,18 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
     // ===== File drop & preview & filters =====
     const drop = $('#drop'); const pick = $('#filePick'); const preview = $('#preview'); const imgFilter = $('#imgFilter');
     function applyFilter(){ const v = parseInt(imgFilter.value||'0',10); const f = `brightness(${100+v/3}%) contrast(${100+v/2}%) saturate(${100+v}%) blur(${Math.max(0,v-70)/25}px)`; $$('#preview img').forEach(i=>i.style.filter=f); }
+    function avgColor(img){
+      const c=document.createElement('canvas'); const cx=c.getContext('2d'); c.width=img.naturalWidth; c.height=img.naturalHeight; cx.drawImage(img,0,0);
+      const d=cx.getImageData(0,0,c.width,c.height).data; let r=0,g=0,b=0,count=0;
+      for(let i=0;i<d.length;i+=20){ r+=d[i]; g+=d[i+1]; b+=d[i+2]; count++; }
+      r=Math.round(r/count); g=Math.round(g/count); b=Math.round(b/count);
+      return `rgb(${r} ${g} ${b})`;
+    }
     function handleFiles(files){
       preview.innerHTML='';
       [...files].forEach(file=>{
         const info = document.createElement('div'); info.className='sub'; info.textContent = `${file.name} • ${Math.round(file.size/1024)} KB`; preview.appendChild(info);
-        if(file.type.startsWith('image/')){ const img=document.createElement('img'); img.loading='lazy'; img.style.maxWidth='100%'; img.style.borderRadius='12px'; img.style.marginTop='.5rem'; img.alt=file.name; img.src=URL.createObjectURL(file); preview.appendChild(img); }
+        if(file.type.startsWith('image/')){ const img=document.createElement('img'); img.loading='lazy'; img.style.maxWidth='100%'; img.style.borderRadius='12px'; img.style.marginTop='.5rem'; img.alt=file.name; img.src=URL.createObjectURL(file); img.onload=()=>{ const col=avgColor(img); applyAccent(col); toast('Accent from image'); }; preview.appendChild(img); }
         else if(file.type==='text/plain'){ file.text().then(t=>{ const pre=document.createElement('pre'); pre.textContent = t.slice(0,2000); preview.appendChild(pre); }); }
       });
       applyFilter();
@@ -783,19 +922,25 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
     drop?.addEventListener('drop', e=>{ e.preventDefault(); drop.classList.remove('hover'); handleFiles(e.dataTransfer.files); });
     imgFilter?.addEventListener('input', applyFilter);
 
-    // ===== Countdown & Pomodoro =====
-    const countInput=$('#countInput'), countDisp=$('#countDisp'); let countTimer=null;
+    // ===== Countdown & Pomodoro + WakeLock + Notifications =====
+    const countInput=$('#countInput'), countDisp=$('#countDisp'); const countWake=$('#countWake'); const countNotify=$('#countNotify'); let countTimer=null;
+    const pomoWake=$('#pomoWake'), pomoNotify=$('#pomoNotify');
+    let wakeLock=null; async function toggleWake(on){ if('wakeLock' in navigator){ try{ if(on && !wakeLock){ wakeLock = await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release',()=>toast('Wake released')); } if(!on && wakeLock){ await wakeLock.release(); wakeLock=null; } }catch{ toast('Wake failed','err'); } } }
+    async function notify(msg){ try{ if(!('Notification' in window)) return; const perm = await Notification.requestPermission(); if(perm==='granted') new Notification(msg); }catch{} }
     $('#startCount')?.addEventListener('click', ()=>{
       let t = parseInt(countInput.value||'60',10); countDisp.textContent=t;
       countTimer && clearInterval(countTimer);
-      countTimer = setInterval(()=>{ t--; countDisp.textContent=t; if(t<=0){ clearInterval(countTimer); beep(); toast('Countdown done'); confetti(); } },1000);
+      toggleWake(countWake.checked);
+      countTimer = setInterval(()=>{ t--; countDisp.textContent=t; if(t<=0){ clearInterval(countTimer); beep(); toast('Countdown done'); if(countNotify.checked) notify('Countdown finished'); confetti(); toggleWake(false); } },1000);
     });
     let pomoTimer=null, pomoPhase='work', pomoLeft=0;
     function startPomo(){ pomoPhase='work'; pomoLeft=25*60; runPomo(); }
-    function runPomo(){ clearInterval(pomoTimer); pomoTimer=setInterval(()=>{ pomoLeft--; $('#pomoDisp').textContent = `${pomoPhase} ${Math.floor(pomoLeft/60)}:${String(pomoLeft%60).padStart(2,'0')}`; if(pomoLeft<=0){ if(pomoPhase==='work'){ pomoPhase='break'; pomoLeft=5*60; toast('Break time'); } else { pomoPhase='work'; pomoLeft=25*60; toast('Back to work'); } beep(); confetti(); } },1000); }
+    function runPomo(){ clearInterval(pomoTimer); toggleWake(pomoWake.checked); pomoTimer=setInterval(()=>{ pomoLeft--; $('#pomoDisp').textContent = `${pomoPhase} ${Math.floor(pomoLeft/60)}:${String(pomoLeft%60).padStart(2,'0')}`; if(pomoLeft<=0){ if(pomoPhase==='work'){ pomoPhase='break'; pomoLeft=5*60; toast('Break time'); if(pomoNotify.checked) notify('Pomodoro: Break time'); } else { pomoPhase='work'; pomoLeft=25*60; toast('Back to work'); if(pomoNotify.checked) notify('Pomodoro: Back to work'); } beep(); confetti(); } },1000); }
     $('#pomoStart')?.addEventListener('click', startPomo);
-    $('#pomoStop')?.addEventListener('click', ()=>{ clearInterval(pomoTimer); $('#pomoDisp').textContent='Idle'; });
+    $('#pomoStop')?.addEventListener('click', ()=>{ clearInterval(pomoTimer); $('#pomoDisp').textContent='Idle'; toggleWake(false); });
     function beep(){ try{ const a=new (window.AudioContext||window.webkitAudioContext)(); const o=a.createOscillator(); const g=a.createGain(); o.frequency.value=880; o.connect(g); g.connect(a.destination); o.start(); g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime+0.3); setTimeout(()=>a.close(),400); }catch{} }
+    // Global Wake button
+    const wakeBtn = $('#wakeBtn'); let wakeOn=false; wakeBtn.addEventListener('click', async ()=>{ wakeOn=!wakeOn; await toggleWake(wakeOn); wakeBtn.textContent = wakeOn ? 'Awake' : 'Wake'; });
 
     // ===== Geolocation =====
     $('#geoBtn')?.addEventListener('click', ()=>{
@@ -811,11 +956,33 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
     const pad = $('#pad'); const pcx = pad.getContext('2d');
     pcx.lineWidth=3; pcx.lineCap='round'; pcx.strokeStyle=getComputedStyle(root).getPropertyValue('--accent').trim();
     let drawing=false, last= null, pressStart=0;
-    function pos(ev){ if(ev.touches){ const r=pad.getBoundingClientRect(); return {x:ev.touches[0].clientX-r.left, y:ev.touches[0].clientY-r.top}; } const r=pad.getBoundingClientRect(); return {x:ev.clientX-r.left, y:ev.clientY-r.top}; }
+    function pos(ev){ const r=pad.getBoundingClientRect(); const x = (ev.touches?ev.touches[0].clientX:ev.clientX)-r.left; const y=(ev.touches?ev.touches[0].clientY:ev.clientY)-r.top; return {x,y}; }
     function draw(ev){ if(!drawing) return; const p=pos(ev); pcx.beginPath(); pcx.moveTo(last.x,last.y); pcx.lineTo(p.x,p.y); pcx.stroke(); last=p; }
     function start(ev){ drawing=true; last=pos(ev); pressStart=Date.now(); }
     function end(){ drawing=false; if(Date.now()-pressStart>700){ pcx.clearRect(0,0,pad.width,pad.height); toast('Canvas cleared'); } }
     pad.addEventListener('pointerdown', start); pad.addEventListener('pointermove', draw); pad.addEventListener('pointerup', end); pad.addEventListener('pointerleave', ()=>drawing=false);
+
+    // ===== Camera capture + Torch =====
+    const cam = $('#cam'), snap = $('#snap'); const camState=$('#camState'); let stream=null; let torchOn=false;
+    async function startCam(){
+      try{
+        stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
+        cam.srcObject = stream; camState.textContent='On';
+      }catch{ toast('Camera failed','err'); }
+    }
+    $('#camStart').addEventListener('click', startCam);
+    $('#camSnap').addEventListener('click', ()=>{ if(!stream) return; const cx=snap.getContext('2d'); cx.drawImage(cam,0,0,snap.width,snap.height); toast('Snapshot taken'); });
+    $('#camTorch').addEventListener('click', async ()=>{
+      try{
+        const track = stream?.getVideoTracks?.()[0]; const caps = track?.getCapabilities?.(); if(!caps || !caps.torch){ return toast('Torch not supported','err'); }
+        torchOn=!torchOn; await track.applyConstraints({advanced:[{torch: torchOn}]}); toast(torchOn?'Torch on':'Torch off');
+      }catch{ toast('Torch failed','err'); }
+    });
+
+    // ===== Network info =====
+    const connInfo = $('#connInfo');
+    function updateConn(){ const c=navigator.connection||navigator.mozConnection||navigator.webkitConnection; if(!c) return; connInfo.textContent = `${c.effectiveType||''} ${c.downlink?c.downlink+'Mbps':''}`.trim(); }
+    updateConn(); (navigator.connection||{}).addEventListener?.('change', updateConn);
 
     // ===== Self-download & copy HTML =====
     function pageHTML(){ const doctype='<!doctype html>\\n'; return doctype + document.documentElement.outerHTML; }
@@ -835,26 +1002,40 @@ area.<span class="tok-fn">addEventListener</span>(<span class="tok-str">'pointer
 
     // ===== Feature counter =====
     const features = [
-      'Theme toggle','Accent color','Font slider','High contrast','Spotlight BG','3D tilt','Parallax','Scroll bar','Scroll ring','Back-to-top','Reveal on view',
+      'Theme toggle','Accent color','Font slider','High contrast','Data saver','Spotlight BG','3D tilt','Parallax','Scroll bar','Scroll ring','Back-to-top','Reveal on view',
       'Nav spy','Tooltips','Sticky header','Sticky sidebar','Tabs','Carousel','Swipe','Modal','Toasts','Command palette',
       'Copy code','Deep-link copy','Live filter','Grid density toggle','Drag cards','Tiles glow','Canvas chart','Chart download','Chart fullscreen','Sortable table',
       'Autosave notes','Notes export','Notes import','File picker','Drag & drop','Image preview','Text preview','Image filters','Countdown timer','Pomodoro',
       'Clock','Random quote','Settings export','Settings import','Settings reset','Konami confetti','Keyboard help','Reduced motion support','Accessible controls','ARIA roles',
       'Keyboard J/K nav','Randomize tiles','Palette search','Auto theme by time','Network indicator','Share API','Print to PDF','Self-download HTML','Copy HTML','Inline source viewer',
-      'Mobile drawer', 'Bottom bar', 'Haptic feedback', 'Device orientation', 'Swipe edge open', 'Geolocation', 'Doodle pad', 'Mic dictation', 'Text to speech', 'Safe-area padding'
+      'Mobile drawer', 'Bottom bar', 'Haptic feedback', 'Device orientation', 'Edge swipe open', 'Geolocation', 'Doodle pad', 'Mic dictation', 'Text to speech', 'Safe-area padding',
+      'PWA manifest', 'Service worker offline', 'Install prompt', 'iOS A2HS hint', 'Wake Lock', 'Notifications', 'Fullscreen toggle', 'Language toggle', 'Bottom sheet', 'Connection info',
+      'Camera capture', 'Torch toggle', 'Average color from image'
     ];
     $('#featureCount').textContent = 'Features loaded: ' + features.length;
 
-    // ===== Konami code -> confetti =====
+    // ===== Konami + Shake to confetti =====
     const KONAMI = [38,38,40,40,37,39,37,39,66,65]; let idx=0;
     window.addEventListener('keydown', e=>{ if(e.keyCode===KONAMI[idx]){ idx++; if(idx===KONAMI.length){ confetti(); toast('🎉 Konami!'); idx=0; } } else { idx=0; } });
-
-    // ===== Confetti (minimal) =====
-    function confetti(){
-      const c=document.createElement('canvas'); c.width=window.innerWidth; c.height=window.innerHeight; c.style.position='fixed'; c.style.inset=0; c.style.zIndex=90; c.style.pointerEvents='none'; document.body.appendChild(c);
-      const cx=c.getContext('2d'); const pieces = Array.from({length:180},()=>({ x:Math.random()*c.width, y:-20-Math.random()*c.height, r:4+Math.random()*6, vx:-2+Math.random()*4, vy:2+Math.random()*3, col:`hsl(${Math.random()*360} 90% 60%)`}));
-      let t=0; function step(){ cx.clearRect(0,0,c.width,c.height); pieces.forEach(p=>{ p.vy+=0.02; p.x+=p.vx; p.y+=p.vy; cx.fillStyle=p.col; cx.beginPath(); cx.arc(p.x,p.y,p.r,0,Math.PI*2); cx.fill(); }); t++; if(t<240) requestAnimationFrame(step); else c.remove(); } step();
+    let lastShake=0;
+    if(window.DeviceMotionEvent){
+      window.addEventListener('devicemotion', e=>{
+        const a=e.accelerationIncludingGravity||{}; const m=Math.abs(a.x||0)+Math.abs(a.y||0)+Math.abs(a.z||0);
+        if(m>35 && Date.now()-lastShake>1500){ lastShake=Date.now(); confetti(); toast('🎊 Shake!'); $('#shakeOut').textContent='Shake: detected'; }
+      });
     }
+
+    // ===== Bottom sheet controls =====
+    const sheet=$('#sheet'); const sheetClose=$('#sheetClose');
+    setTimeout(()=>sheet.classList.add('show'), 1200);
+    sheetClose.addEventListener('click', ()=>sheet.classList.remove('show'));
+    // Drag to close
+    let startY=0, dy=0; sheet.addEventListener('touchstart', e=>{ startY=e.touches[0].clientY; }, {passive:true});
+    sheet.addEventListener('touchmove', e=>{ dy=e.touches[0].clientY-startY; if(dy>0){ sheet.style.transform=`translateY(${Math.min(65, dy/3)}%)`; } }, {passive:true});
+    sheet.addEventListener('touchend', ()=>{ if(dy>100){ sheet.classList.remove('show'); } sheet.style.transform=''; dy=0; }, {passive:true});
+
+    // ===== Fullscreen =====
+    $('#fsBtn').addEventListener('click', ()=>{ if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); } else { document.exitFullscreen?.(); } });
 
     // ===== Help modal toggles =====
     const helpModal = $('#kbd');
